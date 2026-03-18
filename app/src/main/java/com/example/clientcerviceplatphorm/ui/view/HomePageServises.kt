@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.example.clientcerviceplatphorm.R
 import com.example.clientcerviceplatphorm.ui.viewmodel.ViewModelUser
 import com.google.android.material.navigation.NavigationView
@@ -21,6 +22,7 @@ class HomePageServises : AppCompatActivity() {
 
     private lateinit var btnMenu: ImageButton
     private val viewModel: ViewModelUser by viewModels()
+    private lateinit var recycler: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,20 +34,22 @@ class HomePageServises : AppCompatActivity() {
 
         val userId = intent.getStringExtra("id")?: "not fond"
 
-
-
         if (userId != "not fond") {
             viewModel.getUserById(userId)
         }
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+
         val navigateView = findViewById<NavigationView>(R.id.navigationView)
         val headerView = navigateView.getHeaderView(0)
         val txname = headerView.findViewById<TextView>(R.id.txtName)
         val txemail = headerView.findViewById<TextView>(R.id.txtEmail)
         val txphone = headerView.findViewById<TextView>(R.id.txtPhone)
         val txlougout = headerView.findViewById<TextView>(R.id.txtLogout)
+
+        recycler = findViewById(R.id.recycler)
         btnMenu = findViewById(R.id.btnMenu)
+
 
         viewModel.userById.observe(this){user ->
             user?.let {
