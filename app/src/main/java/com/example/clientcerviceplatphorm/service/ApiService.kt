@@ -3,6 +3,7 @@ package com.example.clientcerviceplatphorm.service
 import com.example.clientcerviceplatphorm.model.Admin
 import com.example.clientcerviceplatphorm.model.Client
 import com.example.clientcerviceplatphorm.model.Fournisseur
+import com.example.clientcerviceplatphorm.model.Service
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -39,6 +40,13 @@ interface ApiService {
 
     @GET("api/fournisseurs/{id}")
     suspend fun getFournisseurById(@Path("id") id: String): Fournisseur
+
+    @GET("api/services")
+    suspend fun getServices (): List<Service>
+
+    @POST("api/services")
+    suspend fun createService(@Body service: Service): Service
+
 
 
 }

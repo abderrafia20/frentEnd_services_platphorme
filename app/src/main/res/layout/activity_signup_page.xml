@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Full Name"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -38,7 +38,7 @@
             android:layout_height="50dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -48,7 +48,7 @@
             android:layout_height="50dp"
             android:hint="phone"
             android:inputType="textPhonetic"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="50dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -70,7 +70,7 @@
             android:layout_height="50dp"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -89,7 +89,7 @@
             android:id="@+id/spinnerRole"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/rounded_edittext"
             android:layout_marginBottom="24dp" />
 
         <!-- Button -->
@@ -99,7 +99,7 @@
             android:layout_height="50dp"
             android:text="Sign Up"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#4CAF50"
+            android:backgroundTint="#FFD600"
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
 

@@ -1,6 +1,6 @@
 package com.example.clientcerviceplatphorm.repository
 
-import com.example.clientcerviceplatphorm.model.Admin
+
 import com.example.clientcerviceplatphorm.model.Client
 import com.example.clientcerviceplatphorm.service.RetrofiteInstence
 
