@@ -23,14 +23,31 @@ class HomePageServises : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
     private lateinit var drawerLayout: DrawerLayout
 
+    private lateinit var txname: TextView
+    private lateinit var txemail: TextView
+    private lateinit var txphone: TextView
+    private lateinit var txlogout: TextView
+
     private val viewModel: ViewModelUser by viewModels()
     private val viewModelService: ViewModelService by viewModels()
+
+    private var userId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_servises)
 
-        // init views
+        initViews()
+        setupRecycler()
+        getUserId()
+        observeUser()
+        setupMenu()
+        setupLogout()
+        loadServices()
+        observeServices()
+    }
+
+    private fun initViews() {
         drawerLayout = findViewById(R.id.drawerLayout)
         btnMenu = findViewById(R.id.btnMenu)
         recycler = findViewById(R.id.recycler)
@@ -38,21 +55,24 @@ class HomePageServises : AppCompatActivity() {
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         val headerView = navigationView.getHeaderView(0)
 
-        val txname = headerView.findViewById<TextView>(R.id.txtName)
-        val txemail = headerView.findViewById<TextView>(R.id.txtEmail)
-        val txphone = headerView.findViewById<TextView>(R.id.txtPhone)
-        val txlogout = headerView.findViewById<TextView>(R.id.txtLogout)
+        txname = headerView.findViewById(R.id.txtName)
+        txemail = headerView.findViewById(R.id.txtEmail)
+        txphone = headerView.findViewById(R.id.txtPhone)
+        txlogout = headerView.findViewById(R.id.txtLogout)
+    }
 
-        // RecyclerView setup
+    private fun setupRecycler() {
         recycler.layoutManager = LinearLayoutManager(this)
+    }
 
-        // get user
-        val userId = intent.getStringExtra("id") ?: ""
-
+    private fun getUserId() {
+        userId = intent.getStringExtra("id") ?: ""
         if (userId.isNotEmpty()) {
             viewModel.getUserById(userId)
         }
+    }
 
+    private fun observeUser() {
         viewModel.userById.observe(this) { user ->
             user?.let {
                 txname.text = it.getName()
@@ -60,13 +80,15 @@ class HomePageServises : AppCompatActivity() {
                 txphone.text = it.getPhone()
             }
         }
+    }
 
-        // open drawer
+    private fun setupMenu() {
         btnMenu.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
+    }
 
-        // logout
+    private fun setupLogout() {
         txlogout.setOnClickListener {
             val sharedPref = getSharedPreferences("USER_PREF", MODE_PRIVATE)
             sharedPref.edit().clear().apply()
@@ -76,15 +98,16 @@ class HomePageServises : AppCompatActivity() {
             startActivity(Intent(this, LoginPage::class.java))
             finish()
         }
+    }
 
-        // get services
+    private fun loadServices() {
         viewModelService.getServices()
+    }
 
+    private fun observeServices() {
         viewModelService.services.observe(this) { services ->
             if (services != null) {
-
                 Toast.makeText(this, "Services: ${services.size}", Toast.LENGTH_SHORT).show()
-                recycler.layoutManager = LinearLayoutManager(this)
                 recycler.adapter = AdapterService(services)
             } else {
                 Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show()
