@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.clientcerviceplatphorm.R
 import com.example.clientcerviceplatphorm.model.Service
 
-class AdapterService(private val services: List<Service>) :
+class AdapterService(private val services: List<Service>, private val onItemClick: (Service) -> Unit) :
     RecyclerView.Adapter<AdapterService.ServiceViewHolder>() {
 
 
@@ -31,8 +31,12 @@ class AdapterService(private val services: List<Service>) :
         val service = services[position]
         holder.tvTitle.text = service.title
         holder.tvDescription.text = service.description
-        holder.tvPrice.text = service.price.toString()
-        holder.tvNameFournin.text = service.fournisseurId
+        holder.tvPrice.text = "price : ${service.price} DH"
+        holder.tvNameFournin.text = "Made by : ${service.nameFournisseur}"
+        holder.itemView.setOnClickListener {
+            onItemClick(service)
+        }
+
     }
 
 

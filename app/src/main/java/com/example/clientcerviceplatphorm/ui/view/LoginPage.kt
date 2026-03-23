@@ -29,6 +29,7 @@ class LoginPage : AppCompatActivity() {
         setupPasswordToggle()
         viewModel.getUsers()
 
+
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()

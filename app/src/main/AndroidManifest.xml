@@ -14,6 +14,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClientCervicePlatphorm">
         <activity
+            android:name=".ui.view.DetailServicePage"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.ProfilePage"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.InterventionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.basseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.CreateServicePage"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.MainActivity"
             android:exported="false" />
         <activity

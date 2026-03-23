@@ -2,6 +2,7 @@ package com.example.clientcerviceplatphorm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ class SignupPage : AppCompatActivity() {
     private lateinit var btnSignup: Button
     private lateinit var txtLogin: TextView
     private lateinit var txtError: TextView
+    private lateinit var showPasswordCheckBox: CheckBox
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,7 @@ class SignupPage : AppCompatActivity() {
         initViews()
         setupSpinner()
         setupObservers()
+        setupPasswordToggle()
         viewModel.getUsers() // fetch all users for validation
 
         btnSignup.setOnClickListener { handleSignup() }
@@ -52,6 +55,23 @@ class SignupPage : AppCompatActivity() {
         txtLogin = findViewById(R.id.txtlogin)
         txtError = findViewById(R.id.txterror)
         etphone = findViewById(R.id.etphone)
+        showPasswordCheckBox = findViewById(R.id.showPassCheckBox)
+    }
+
+    private fun setupPasswordToggle() {
+
+        showPasswordCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                etPassword.transformationMethod = null
+                etPasswordC.transformationMethod = null
+            } else {
+                val method = PasswordTransformationMethod.getInstance()
+                etPassword.transformationMethod = method
+                etPasswordC.transformationMethod = method
+            }
+            etPassword.setSelection(etPassword.text.length)
+            etPasswordC.setSelection(etPasswordC.text.length)
+        }
     }
 
     private fun setupSpinner() {

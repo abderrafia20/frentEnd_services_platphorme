@@ -29,6 +29,7 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:background="@drawable/rounded_edittext"
+        android:textColor="@color/black"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_marginTop="40dp"
@@ -44,6 +45,7 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:background="@drawable/rounded_edittext"
+        android:textColor="@color/black"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_marginTop="16dp"
@@ -60,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext"
         android:text="Show Password "
-        android:textColor="#555555"
         app:layout_constraintStart_toStartOf="@+id/etPassword"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
 

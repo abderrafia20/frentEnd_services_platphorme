@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clientcerviceplatphorm.model.Service
+import com.example.clientcerviceplatphorm.model.User
 import com.example.clientcerviceplatphorm.repository.RepositoryService
 import kotlinx.coroutines.launch
 
@@ -16,6 +17,8 @@ class ViewModelService: ViewModel() {
 
     private val _createService = MutableLiveData<Service>()
     val createService: LiveData<Service> = _createService
+    private val _SrviceById = MutableLiveData<Service?>()
+    val SrviceById: LiveData<Service?> = _SrviceById
 
     private val _error = MutableLiveData<String>()
     val error : LiveData<String> = _error
@@ -36,6 +39,18 @@ class ViewModelService: ViewModel() {
                 val repence = repoService.createService(service)
                 if (repence != null) _createService.value = service
                 else _error.value = "error create service !"
+            }catch (e: Exception){
+                _error.value = e.message
+            }
+        }
+    }
+
+    fun getServiceById(id: String) {
+        viewModelScope.launch {
+            try {
+                val repence = repoService.getServiceById(id)
+                if (repence != null) _SrviceById.value = repence
+                else _error.value = "error geting service !"
             }catch (e: Exception){
                 _error.value = e.message
             }

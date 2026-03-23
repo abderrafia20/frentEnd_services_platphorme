@@ -32,7 +32,6 @@ class ViewModelUser : ViewModel() {
     val error: LiveData<String?> = _error
 
 
-    // Create any type of user
     fun createUser(user: User) {
         viewModelScope.launch {
             try {
@@ -59,7 +58,7 @@ class ViewModelUser : ViewModel() {
         }
     }
 
-    // Fetch all users (all types)
+
     fun getUsers() {
         viewModelScope.launch {
             try {
@@ -74,7 +73,7 @@ class ViewModelUser : ViewModel() {
         }
     }
 
-    // Login based on email and password
+
     fun login(email: String, password: String) {
         viewModelScope.launch {
             try {
@@ -94,10 +93,10 @@ class ViewModelUser : ViewModel() {
         }
     }
 
+
     fun getUserById(id: String) {
         viewModelScope.launch {
             try {
-
                 val admin = repoAdmin.getAdminById(id)
                 if (admin != null) {
                     _userById.value = User.AdminUser(admin)
@@ -117,8 +116,47 @@ class ViewModelUser : ViewModel() {
                 }
 
                 _error.value = "User not found"
-
             } catch (e: Exception) {
+                _error.value = e.message
+            }
+        }
+    }
+
+
+    fun deleteUser(id: String) {
+        viewModelScope.launch {
+            try {
+                var deleted = false
+
+
+                val admin = repoAdmin.getAdminById(id)
+                if(admin != null){
+                    deleted = repoAdmin.deleteAdmin(id)
+                }
+
+
+                if(!deleted){
+                    val client = repoClient.getClientById(id)
+                    if(client != null){
+                        deleted = repoClient.deleteClient(id)
+                    }
+                }
+
+
+                if(!deleted){
+                    val fournisseur = repoFournisseur.getFournisseurtById(id)
+                    if(fournisseur != null){
+                        deleted = repoFournisseur.deleteFournisseur(id)
+                    }
+                }
+
+                if(deleted){
+                    _userById.value = null
+                } else {
+                    _error.value = "User not found or cannot be deleted"
+                }
+
+            } catch (e: Exception){
                 _error.value = e.message
             }
         }
