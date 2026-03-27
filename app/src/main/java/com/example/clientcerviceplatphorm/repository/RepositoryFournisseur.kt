@@ -44,4 +44,12 @@ class RepositoryFournisseur {
             false
         }
     }
+
+    suspend fun updateFournisseur(id: String, fournisseur: Fournisseur): Fournisseur? {
+        return try {
+            api.updateFournisseur(id, fournisseur)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

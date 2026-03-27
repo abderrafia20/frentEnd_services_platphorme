@@ -161,4 +161,23 @@ class ViewModelUser : ViewModel() {
             }
         }
     }
+
+    fun updateUser(id: String, user: User) {
+        viewModelScope.launch {
+            try {
+                val updated = when(user) {
+                    is User.AdminUser -> repoAdmin.updateAdmin(id, user.admin) != null
+                    is User.ClientUser -> repoClient.updateClient(id, user.client) != null
+                    is User.FournisseurUser -> repoFournisseur.updateFournisseur(id, user.fournisseur) != null
+                }
+                if (updated) {
+                    _userById.value = user
+                } else {
+                    _error.value = "Failed to update user"
+                }
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
+        }
+    }
 }

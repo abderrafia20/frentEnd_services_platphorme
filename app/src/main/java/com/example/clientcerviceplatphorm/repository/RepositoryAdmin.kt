@@ -39,4 +39,12 @@ class RepositoryAdmin {
             false
         }
     }
+
+    suspend fun updateAdmin(id: String, admin: Admin): Admin? {
+        return try {
+            apiService.updateAdmin(id, admin)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

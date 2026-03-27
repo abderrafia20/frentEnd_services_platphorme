@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="#FFD600"
     android:orientation="vertical"
     android:padding="16dp">
@@ -31,12 +31,32 @@
         android:textColor="#000"/>
 
     <TextView
+        android:id="@+id/txtUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Account"
+        android:textColor="#000"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/txtDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:textColor="#F44336"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
         android:id="@+id/txtLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign out"
+        android:text="Logout"
         android:textColor="#000"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
         />
 </LinearLayout>

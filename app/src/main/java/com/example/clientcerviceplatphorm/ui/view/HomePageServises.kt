@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,6 +30,8 @@ class HomePageServises : BaseActivity() {
     private lateinit var txemail: TextView
     private lateinit var txphone: TextView
     private lateinit var txlogout: TextView
+    private lateinit var txupdate: TextView
+    private lateinit var txdelete: TextView
     private lateinit var etSearch: EditText
 
     private var allServices: List<Service> = emptyList()
@@ -46,13 +49,11 @@ class HomePageServises : BaseActivity() {
         setupRecycler()
         getUserId()
         setupMenu()
-        setupLogout()
+        setupDrawerListeners()
         observeUser()
         loadServices()
         observeServices()
         setupSearch()
-
-
     }
 
     private fun initViews() {
@@ -61,7 +62,6 @@ class HomePageServises : BaseActivity() {
         etSearch = findViewById(R.id.etSearch)
         recycler = findViewById(R.id.recycler)
 
-
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         val headerView = navigationView.getHeaderView(0)
 
@@ -69,6 +69,8 @@ class HomePageServises : BaseActivity() {
         txemail = headerView.findViewById(R.id.txtEmail)
         txphone = headerView.findViewById(R.id.txtPhone)
         txlogout = headerView.findViewById(R.id.txtLogout)
+        txupdate = headerView.findViewById(R.id.txtUpdate)
+        txdelete = headerView.findViewById(R.id.txtDelete)
     }
 
     private fun setupRecycler() {
@@ -100,12 +102,33 @@ class HomePageServises : BaseActivity() {
         }
     }
 
-    private fun setupLogout() {
+    private fun setupDrawerListeners() {
         txlogout.setOnClickListener {
             getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
             Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginPage::class.java))
             finish()
+        }
+
+        txupdate.setOnClickListener {
+            val intent = Intent(this, UpdateAccountPage::class.java)
+            intent.putExtra("id", userId)
+            startActivity(intent)
+        }
+
+        txdelete.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Confirm Delete")
+            builder.setMessage("Are you sure you want to delete your account?")
+            builder.setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteUser(userId)
+                getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
+                Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginPage::class.java))
+                finish()
+            }
+            builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            builder.show()
         }
     }
 
@@ -148,5 +171,4 @@ class HomePageServises : BaseActivity() {
             }
         }
     }
-
 }

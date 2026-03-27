@@ -44,4 +44,12 @@ class RepositoryClient {
             false
         }
     }
+
+    suspend fun updateClient(id: String, client: Client): Client? {
+        return try {
+            api.updateClient(id, client)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }
