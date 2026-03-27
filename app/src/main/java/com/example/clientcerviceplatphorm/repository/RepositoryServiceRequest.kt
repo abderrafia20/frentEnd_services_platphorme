@@ -31,6 +31,14 @@ class RepositoryServiceRequest {
         }
     }
 
+    suspend fun updateServiceRequest(id: String, serviceRequest: ServiceRequest): ServiceRequest? {
+        return try {
+            api.updateServiceRequest(id, serviceRequest)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun deleteServiceRequest(id: String): Boolean {
         return try {
             val response = api.deleteServiceRequest(id)

@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClientCervicePlatphorm">
         <activity
+            android:name=".ui.view.DetailSerReq"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.DetailServicePage"
             android:exported="false" />
         <activity
@@ -23,7 +26,7 @@
             android:name=".ui.view.InterventionsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.basseActivity"
+            android:name=".ui.view.BaseActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.CreateServicePage"
@@ -36,7 +39,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.view.HomePageServises"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.view.LoginPage"
             android:exported="false" />

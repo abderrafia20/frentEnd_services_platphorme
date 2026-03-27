@@ -16,12 +16,12 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvNameCF"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:text="Service Description"
-        android:textSize="14sp"
-        android:paddingTop="4dp"/>
+        android:layout_height="wrap_content"
+        android:text="name "
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvPrice"
@@ -32,10 +32,27 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/tvNameFournir"
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="Service Description client"
+        android:textSize="14sp"
+        android:paddingTop="4dp"/>
+
+    <TextView
+        android:id="@+id/tvdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Made by : fournissoure"
+        android:text="date"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Statue"
         android:textSize="16sp"
         android:textStyle="bold"/>
 </LinearLayout>

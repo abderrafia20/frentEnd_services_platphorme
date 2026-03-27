@@ -10,5 +10,5 @@ data class ServiceRequest(
     var serviceId: String,
     var decreption: String,
     var status: StatusSR,
-    var date: Date = Date() //LocalDateTime = LocalDateTime.now()
+    var date: Date = Date()
 )

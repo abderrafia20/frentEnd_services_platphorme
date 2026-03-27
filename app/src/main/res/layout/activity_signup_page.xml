@@ -11,7 +11,7 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- Title -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="32dp" />
 
-        <!-- Name -->
+
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
@@ -28,10 +28,11 @@
             android:hint="Full Name"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Email -->
+
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -40,6 +41,7 @@
             android:inputType="textEmailAddress"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
@@ -51,10 +53,11 @@
             android:inputType="textPhonetic"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Password -->
+
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
@@ -63,10 +66,11 @@
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Confirm Password -->
+
         <EditText
             android:id="@+id/etPasswordC"
             android:layout_width="match_parent"
@@ -75,11 +79,12 @@
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
 
-        <!-- Spinner -->
+
 
         <CheckBox
             android:id="@+id/showPassCheckBox"
@@ -96,9 +101,10 @@
             android:layout_height="50dp"
             android:background="@drawable/rounded_edittext"
             android:textColor="@color/black"
+            android:textColorHint="#9B923B"
             android:layout_marginBottom="24dp" />
 
-        <!-- Error -->
+
         <TextView
             android:id="@+id/txterror"
             android:layout_width="match_parent"

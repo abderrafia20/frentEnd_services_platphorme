@@ -3,7 +3,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@color/white"
     android:padding="20dp"
     android:orientation="vertical">
 
@@ -12,7 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:hint="Name"
+        android:textColor="@color/black"
+        android:textColorHint="#9B923B"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerR"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"/>
 </LinearLayout>

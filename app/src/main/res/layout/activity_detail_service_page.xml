@@ -87,6 +87,7 @@
             android:layout_margin="12dp"
             android:layout_marginTop="21dp"
             android:background="@drawable/rounded_edittext"
+            android:textColorHint="#9B923B"
             android:hint="Description detaile sirvice"
             android:inputType="textMultiLine"
             android:padding="16dp"
