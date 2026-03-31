@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.clientcerviceplatphorm.model.Service
-import com.example.clientcerviceplatphorm.model.User
 import com.example.clientcerviceplatphorm.repository.RepositoryService
 import kotlinx.coroutines.launch
 
@@ -19,6 +18,9 @@ class ViewModelService: ViewModel() {
     val createService: LiveData<Service> = _createService
     private val _SrviceById = MutableLiveData<Service?>()
     val SrviceById: LiveData<Service?> = _SrviceById
+
+    private val _deleteSuccess = MutableLiveData<Boolean>()
+    val deleteSuccess: LiveData<Boolean> = _deleteSuccess
 
     private val _error = MutableLiveData<String>()
     val error : LiveData<String> = _error
@@ -53,6 +55,34 @@ class ViewModelService: ViewModel() {
                 else _error.value = "error geting service !"
             }catch (e: Exception){
                 _error.value = e.message
+            }
+        }
+    }
+
+    fun updateService(id: String, service: Service) {
+        viewModelScope.launch {
+            try {
+                val response = repoService.updateService(id, service)
+                if (response != null) {
+                    getServices() 
+                } else {
+                    _error.value = "error updating service !"
+                }
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
+        }
+    }
+
+    fun deleteService(id: String) {
+        viewModelScope.launch {
+            try {
+                val success = repoService.deleteService(id)
+                _deleteSuccess.value = success
+                if (!success) _error.value = "Error deleting service"
+            } catch (e: Exception) {
+                _error.value = e.message
+                _deleteSuccess.value = false
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.clientcerviceplatphorm.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -91,7 +92,7 @@ class SignupPage : AppCompatActivity() {
         }
 
         viewModel.error.observe(this) { errorMsg ->
-            errorMsg?.let { txtError.text = it }
+            errorMsg?.let { showError(it) }
         }
     }
 
@@ -103,20 +104,20 @@ class SignupPage : AppCompatActivity() {
         val role = RoleUser.valueOf(spinnerRole.selectedItem.toString())
         val phone = etphone.text.toString().trim()
 
-        txtError.text = ""
+        txtError.visibility = View.GONE
 
         if (name.isEmpty() || email.isEmpty()  || phone.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            txtError.text = "Fill all fields"
+            showError("Fill all fields")
             return
         }
 
         if (password != confirmPassword) {
-            txtError.text = "Passwords do not match"
+            showError("Passwords do not match")
             return
         }
 
         if (valid.valideemail(email) == null || valid.validpass(password) == null) {
-            txtError.text = "Invalid email or password"
+            showError("Invalid email or password")
             return
         }
 
@@ -127,5 +128,10 @@ class SignupPage : AppCompatActivity() {
         }
 
         viewModel.createUser(user)
+    }
+
+    private fun showError(message: String) {
+        txtError.text = message
+        txtError.visibility = View.VISIBLE
     }
 }

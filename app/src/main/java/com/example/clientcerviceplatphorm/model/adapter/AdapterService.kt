@@ -14,9 +14,8 @@ class AdapterService(private val services: List<Service>, private val onItemClic
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
         val tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
-        val tvNameFournin: TextView = itemView.findViewById(R.id.tvNameFournir)
+        val tvNameFournin: TextView = itemView.findViewById(R.id.tvNameF)
     }
 
 
@@ -30,9 +29,8 @@ class AdapterService(private val services: List<Service>, private val onItemClic
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
         val service = services[position]
         holder.tvTitle.text = service.title
-        holder.tvDescription.text = service.description
-        holder.tvPrice.text = "price : ${service.price} DH"
-        holder.tvNameFournin.text = "Made by : ${service.nameFournisseur}"
+        holder.tvPrice.text = "${service.price} DH"
+        holder.tvNameFournin.text = "By: ${service.nameFournisseur}"
         holder.itemView.setOnClickListener {
             onItemClick(service)
         }

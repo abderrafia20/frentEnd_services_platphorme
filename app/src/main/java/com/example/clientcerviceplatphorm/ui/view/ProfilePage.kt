@@ -2,6 +2,7 @@ package com.example.clientcerviceplatphorm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -29,13 +30,10 @@ class ProfilePage : BaseActivity() {
     private lateinit var recyclerV: RecyclerView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var btnMenu: ImageButton
+    private lateinit var tvServicesTitle: TextView
 
     private lateinit var txnameHeader: TextView
     private lateinit var txemailHeader: TextView
-    private lateinit var txphoneHeader: TextView
-    private lateinit var txlogout: TextView
-    private lateinit var txupdate: TextView
-    private lateinit var txdelete: TextView
 
     private var idF = ""
     private var idUser = ""
@@ -45,7 +43,6 @@ class ProfilePage : BaseActivity() {
         setContentView(R.layout.activity_profile_page)
 
         initViews()
-        setupDrawerListeners()
         setupMenu()
 
         idUser = intent.getStringExtra("id") ?: ""
@@ -63,11 +60,13 @@ class ProfilePage : BaseActivity() {
                 // Update Header
                 txnameHeader.text = it.getName()
                 txemailHeader.text = it.getEmail()
-                txphoneHeader.text = it.getPhone()
 
                 if (it is User.FournisseurUser) {
                     idF = it.getId()
                     viewModelService.getServices()
+                    tvServicesTitle.visibility = View.VISIBLE
+                } else {
+                    tvServicesTitle.visibility = View.GONE
                 }
 
                 setupBottomNavigation(it)
@@ -81,7 +80,7 @@ class ProfilePage : BaseActivity() {
                 recyclerV.adapter = AdapterService(myServices) { service ->
                     val intent = Intent(this, DetailServicePage::class.java)
                     intent.putExtra("idService", service.id)
-                    intent.putExtra("idUser", idF)
+                    intent.putExtra("idUser", idUser)
                     startActivity(intent)
                 }
             }
@@ -99,6 +98,7 @@ class ProfilePage : BaseActivity() {
         txtEmail = findViewById(R.id.etEmailP)
         txtPhone = findViewById(R.id.etPhoneP)
         recyclerV = findViewById(R.id.recyclerP)
+        tvServicesTitle = findViewById(R.id.tvServicesTitle)
         recyclerV.layoutManager = LinearLayoutManager(this)
 
         drawerLayout = findViewById(R.id.drawerLayout)
@@ -109,45 +109,43 @@ class ProfilePage : BaseActivity() {
 
         txnameHeader = headerView.findViewById(R.id.txtName)
         txemailHeader = headerView.findViewById(R.id.txtEmail)
-        txphoneHeader = headerView.findViewById(R.id.txtPhone)
-        txlogout = headerView.findViewById(R.id.txtLogout)
-        txupdate = headerView.findViewById(R.id.txtUpdate)
-        txdelete = headerView.findViewById(R.id.txtDelete)
+
+
+        headerView.findViewById<View>(R.id.txtLogout).setOnClickListener {
+            logout()
+        }
+        headerView.findViewById<View>(R.id.txtUpdate).setOnClickListener {
+            val intent = Intent(this, UpdateAccountPage::class.java)
+            intent.putExtra("id", idUser)
+            startActivity(intent)
+        }
+        headerView.findViewById<View>(R.id.txtDelete).setOnClickListener {
+            showDeleteConfirmDialog()
+        }
+    }
+
+    private fun logout() {
+        getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, LoginPage::class.java))
+        finishAffinity()
+    }
+
+    private fun showDeleteConfirmDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Account")
+            .setMessage("Are you sure you want to delete your account?")
+            .setPositiveButton("Yes") { _, _ ->
+                viewModelUser.deleteUser(idUser)
+                logout()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun setupMenu() {
         btnMenu.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
-        }
-    }
-
-    private fun setupDrawerListeners() {
-        txlogout.setOnClickListener {
-            getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
-            Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LoginPage::class.java))
-            finish()
-        }
-
-        txupdate.setOnClickListener {
-            val intent = Intent(this, UpdateAccountPage::class.java)
-            intent.putExtra("id", idUser)
-            startActivity(intent)
-        }
-
-        txdelete.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Confirm Delete")
-            builder.setMessage("Are you sure you want to delete your account?")
-            builder.setPositiveButton("Yes") { _, _ ->
-                viewModelUser.deleteUser(idUser)
-                getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
-                Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginPage::class.java))
-                finish()
-            }
-            builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-            builder.show()
         }
     }
 }

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    >
 
-    <item android:title="Magazine week"/>
-    <item android:title="The supplement"/>
-    <item android:title="Fashion mag"/>
-    <item android:title="Magdesign"/>
-    <item android:title="The traveller"/>
-    <item android:title="Cinema Paradiso"/>
-    <item android:title="Economy"/>
-    <item android:title="Showcase"/>
+    <item
+        android:id="@+id/nav_favorite"
+        android:title="Favorite" />
+
+    <item
+        android:id="@+id/nav_history"
+        android:title="Historic" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile" />
 
 </menu>

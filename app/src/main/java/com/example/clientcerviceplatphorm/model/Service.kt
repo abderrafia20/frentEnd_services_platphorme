@@ -6,5 +6,6 @@ data class Service(
     val fournisseurId: String,
     var title: String,
     var description: String,
-    var price: Double
+    var price: Double,
+    var image: String? = null
 )

@@ -2,6 +2,7 @@ package com.example.clientcerviceplatphorm.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -26,17 +27,13 @@ class HomePageServises : BaseActivity() {
     private lateinit var recycler: RecyclerView
     private lateinit var drawerLayout: DrawerLayout
 
-    private lateinit var txname: TextView
-    private lateinit var txemail: TextView
-    private lateinit var txphone: TextView
-    private lateinit var txlogout: TextView
-    private lateinit var txupdate: TextView
-    private lateinit var txdelete: TextView
+    private lateinit var txnameHeader: TextView
+    private lateinit var txemailHeader: TextView
     private lateinit var etSearch: EditText
 
     private var allServices: List<Service> = emptyList()
 
-    private val viewModel: ViewModelUser by viewModels()
+    private val viewModelUser: ViewModelUser by viewModels()
     private val viewModelService: ViewModelService by viewModels()
 
     private var userId: String = ""
@@ -49,7 +46,6 @@ class HomePageServises : BaseActivity() {
         setupRecycler()
         getUserId()
         setupMenu()
-        setupDrawerListeners()
         observeUser()
         loadServices()
         observeServices()
@@ -65,12 +61,40 @@ class HomePageServises : BaseActivity() {
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         val headerView = navigationView.getHeaderView(0)
 
-        txname = headerView.findViewById(R.id.txtName)
-        txemail = headerView.findViewById(R.id.txtEmail)
-        txphone = headerView.findViewById(R.id.txtPhone)
-        txlogout = headerView.findViewById(R.id.txtLogout)
-        txupdate = headerView.findViewById(R.id.txtUpdate)
-        txdelete = headerView.findViewById(R.id.txtDelete)
+        txnameHeader = headerView.findViewById(R.id.txtName)
+        txemailHeader = headerView.findViewById(R.id.txtEmail)
+        
+        // Drawer Listeners
+        headerView.findViewById<View>(R.id.txtLogout).setOnClickListener {
+            logout()
+        }
+        headerView.findViewById<View>(R.id.txtUpdate).setOnClickListener {
+            val intent = Intent(this, UpdateAccountPage::class.java)
+            intent.putExtra("id", userId)
+            startActivity(intent)
+        }
+        headerView.findViewById<View>(R.id.txtDelete).setOnClickListener {
+            showDeleteConfirmDialog()
+        }
+    }
+
+    private fun logout() {
+        getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, LoginPage::class.java))
+        finishAffinity()
+    }
+
+    private fun showDeleteConfirmDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Account")
+            .setMessage("Are you sure you want to delete your account?")
+            .setPositiveButton("Yes") { _, _ ->
+                viewModelUser.deleteUser(userId)
+                logout()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun setupRecycler() {
@@ -80,17 +104,15 @@ class HomePageServises : BaseActivity() {
     private fun getUserId() {
         userId = intent.getStringExtra("id") ?: ""
         if (userId.isNotEmpty()) {
-            viewModel.getUserById(userId)
+            viewModelUser.getUserById(userId)
         }
     }
 
     private fun observeUser() {
-        viewModel.userById.observe(this) { user ->
+        viewModelUser.userById.observe(this) { user ->
             user?.let {
-                txname.text = it.getName()
-                txemail.text = it.getEmail()
-                txphone.text = it.getPhone()
-
+                txnameHeader.text = it.getName()
+                txemailHeader.text = it.getEmail()
                 setupBottomNavigation(it)
             }
         }
@@ -99,36 +121,6 @@ class HomePageServises : BaseActivity() {
     private fun setupMenu() {
         btnMenu.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
-        }
-    }
-
-    private fun setupDrawerListeners() {
-        txlogout.setOnClickListener {
-            getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
-            Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LoginPage::class.java))
-            finish()
-        }
-
-        txupdate.setOnClickListener {
-            val intent = Intent(this, UpdateAccountPage::class.java)
-            intent.putExtra("id", userId)
-            startActivity(intent)
-        }
-
-        txdelete.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Confirm Delete")
-            builder.setMessage("Are you sure you want to delete your account?")
-            builder.setPositiveButton("Yes") { _, _ ->
-                viewModel.deleteUser(userId)
-                getSharedPreferences("USER_PREF", MODE_PRIVATE).edit().clear().apply()
-                Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginPage::class.java))
-                finish()
-            }
-            builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-            builder.show()
         }
     }
 
@@ -145,10 +137,7 @@ class HomePageServises : BaseActivity() {
                     intent.putExtra("idService", service.id)
                     intent.putExtra("idUser", userId)
                     startActivity(intent)
-
                 }
-            } else {
-                Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -156,12 +145,10 @@ class HomePageServises : BaseActivity() {
     private fun setupSearch() {
         etSearch.addTextChangedListener {
             val query = it.toString().lowercase()
-
-            val filteredList = allServices.filter {service ->
+            val filteredList = allServices.filter { service ->
                 service.title.lowercase().contains(query) ||
                 service.nameFournisseur.lowercase().contains(query)||
                 service.price.toString().lowercase().contains(query)
-
             }
             recycler.adapter = AdapterService(filteredList) { service ->
                 val intent = Intent(this, DetailServicePage::class.java)

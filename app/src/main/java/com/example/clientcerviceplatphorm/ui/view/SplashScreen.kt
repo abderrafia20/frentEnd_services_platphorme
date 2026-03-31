@@ -30,6 +30,6 @@ class SplashScreen : AppCompatActivity() {
 
             finish()
 
-        }, 2000) // 2 seconds splash
+        }, 2000)
     }
 }

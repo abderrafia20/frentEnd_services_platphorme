@@ -1,6 +1,5 @@
 package com.example.clientcerviceplatphorm.repository
 
-import com.example.clientcerviceplatphorm.model.Fournisseur
 import com.example.clientcerviceplatphorm.model.Service
 import com.example.clientcerviceplatphorm.service.RetrofiteInstence
 
@@ -28,6 +27,23 @@ class RepositoryService {
             api.getServiceById(id)
         }catch (e: Exception){
             null
+        }
+    }
+
+    suspend fun updateService(id: String, service: Service): Service? {
+        return try {
+            api.updateService(id, service)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun deleteService(id: String): Boolean {
+        return try {
+            val response = api.deleteService(id)
+            response.isSuccessful
+        } catch (e: Exception) {
+            false
         }
     }
 

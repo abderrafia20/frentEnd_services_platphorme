@@ -1,101 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_background">
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottomLayout"/>
-    <LinearLayout
-        android:id="@+id/bottomLayout"
+        android:layout_above="@id/bottomCard"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomCard"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@drawable/bachgound_muneb"
-        android:gravity="center">
-
-
-
-        <LinearLayout
-            android:id="@+id/navHome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnHome"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:contentDescription="home"
-                android:scaleType="centerInside"
-                android:src="@drawable/ico_home"/>
-
-
-        </LinearLayout>
+        android:layout_margin="12dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/card_background">
 
         <LinearLayout
-            android:id="@+id/navInterventions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:gravity="center">
 
-            <ImageButton
-                android:id="@+id/btnInterventions"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:contentDescription="intervenction"
-                android:scaleType="centerInside"
-                android:src="@drawable/ico_intervation"/>
+            <LinearLayout
+                android:id="@+id/navHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/btnHome"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ico_home"
+                    app:tint="@color/text_secondary"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/navInterventions"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/btnInterventions"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ico_intervation"
+                    app:tint="@color/text_secondary"/>
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/navAdd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:gravity="center">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnAjour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ico_ajout"
+                    app:fabSize="mini"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:tint="@color/white"
+                    app:elevation="0dp"
+                    android:contentDescription="Add Service"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navprofile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/btnprofile"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ico_profile"
+                    app:tint="@color/text_secondary"/>
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/navAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnAjour"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:contentDescription="profile"
-                android:scaleType="centerInside"
-                android:src="@drawable/ico_ajout"/>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/navprofile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btnprofile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:contentDescription="intervenction"
-                android:scaleType="centerInside"
-                android:src="@drawable/ico_profile"/>
-
-
-        </LinearLayout>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

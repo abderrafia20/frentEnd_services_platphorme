@@ -5,14 +5,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.clientcerviceplatphorm.R
-import com.example.clientcerviceplatphorm.model.Admin
-import com.example.clientcerviceplatphorm.model.Client
-import com.example.clientcerviceplatphorm.model.Fournisseur
+import com.example.clientcerviceplatphorm.model.Service
 import com.example.clientcerviceplatphorm.model.User
+import com.example.clientcerviceplatphorm.ui.viewmodel.ViewModelService
 import com.example.clientcerviceplatphorm.ui.viewmodel.ViewModelUser
 
-class UpdateAccountPage : BaseActivity() {
+class UpdateAccountPage : AppCompatActivity() {
 
     private lateinit var etName: EditText
     private lateinit var etEmail: EditText
@@ -20,7 +20,9 @@ class UpdateAccountPage : BaseActivity() {
     private lateinit var btnUpdate: Button
 
     private val viewModelUser: ViewModelUser by viewModels()
+    private val viewModelService: ViewModelService by viewModels()
     private var userId: String = ""
+    private val servicesF: MutableList<Service> = mutableListOf()
     private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,13 +46,25 @@ class UpdateAccountPage : BaseActivity() {
                 etName.setText(it.getName())
                 etEmail.setText(it.getEmail())
                 etPhone.setText(it.getPhone())
+                
+                if (it is User.FournisseurUser) {
+                    viewModelService.getServices()
+                }
+            }
+        }
+
+        viewModelService.services.observe(this) { services ->
+            if (services != null && userId.isNotEmpty()) {
+                val filtered = services.filter { it.fournisseurId == userId }
+                servicesF.clear()
+                servicesF.addAll(filtered)
             }
         }
 
         btnUpdate.setOnClickListener {
-            val name = etName.text.toString()
-            val email = etEmail.text.toString()
-            val phone = etPhone.text.toString()
+            val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val phone = etPhone.text.toString().trim()
 
             if (name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty()) {
                 currentUser?.let { user ->
@@ -59,6 +73,16 @@ class UpdateAccountPage : BaseActivity() {
                         is User.ClientUser -> User.ClientUser(user.client.copy(name = name, email = email, phone = phone))
                         is User.FournisseurUser -> User.FournisseurUser(user.fournisseur.copy(name = name, email = email, phone = phone))
                     }
+
+
+
+                    if (user is User.FournisseurUser) {
+                        servicesF.forEach { s ->
+                            s.nameFournisseur = name
+                            viewModelService.updateService(s.id.toString(), s)
+                        }
+                    }
+
                     viewModelUser.updateUser(userId, updatedUser)
                     Toast.makeText(this, "Account updated", Toast.LENGTH_SHORT).show()
                     finish()

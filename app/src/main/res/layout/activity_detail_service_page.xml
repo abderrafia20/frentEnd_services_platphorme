@@ -1,123 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:background="@color/bg_background">
 
-
-    <TextView
-        android:id="@+id/txtHeaderD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Detail Service"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/txtTitleD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Service Title"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/txtHeaderD"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/txtDescriptionD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Service Description"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/txtTitleD"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/txtPriceD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price: 0.00"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/txtDescriptionD"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/txtFournisseurD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Made by: Fournisseur"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/txtPriceD"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <LinearLayout
-        android:id="@+id/VcreateSR"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:visibility="invisible"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/txtFournisseurD"
-        tools:layout_editor_absoluteX="16dp">
+        android:background="@color/colorPrimary">
 
-        <EditText
-            android:id="@+id/edtDescriptionSR"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="12dp"
-            android:layout_marginTop="21dp"
-            android:background="@drawable/rounded_edittext"
-            android:textColorHint="#9B923B"
-            android:hint="Description detaile sirvice"
-            android:inputType="textMultiLine"
-            android:padding="16dp"
-            android:textColor="@color/black" />
+            android:layout_height="?attr/actionBarSize"
+            app:title="Service Details"
+            app:titleTextColor="@color/white" />
 
-        <TextView
-            android:id="@+id/errorSR"
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="#FF0000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btnCreateServiceR"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="52dp"
-            android:backgroundTint="#FFD600"
-            android:elevation="4dp"
-            android:text=" Create Service"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.0" />
-    </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
 
+                <ImageView
+                    android:id="@+id/imgServiceD"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@color/colorPrimaryLight" />
 
+                <TextView
+                    android:id="@+id/txtNoImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Image"
+                    android:textColor="#888"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorPrimaryLight"
+                android:padding="24dp">
 
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/ModernCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/txtTitleD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Service Title"
+                            android:textColor="@color/text_primary"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/txtPriceD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Price: 0.00 DH"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="16dp"/>
+
+                        <TextView
+                            android:id="@+id/txtDescriptionD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Service Description"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_marginBottom="16dp"/>
+
+                        <TextView
+                            android:id="@+id/txtFournisseurD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Provider: Name"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="italic"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:id="@+id/viewAdminFournisseur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/bntUpdate"
+                        style="@style/ModernButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="update Service"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="12dp"/>
+
+                    <Button
+                        android:id="@+id/bntDelete"
+                        style="@style/ModernButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="delete service"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/color_btn_read"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/VcreateSR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order this service"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/ModernCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <EditText
+                                android:id="@+id/edtDescriptionSR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="100dp"
+                                android:hint="Tell the provider what you need..."
+                                android:inputType="textMultiLine"
+                                android:gravity="top"
+                                android:background="@drawable/rounded_edittext"
+                                android:padding="16dp"
+                                android:textColor="@color/text_primary"
+                                android:layout_marginBottom="12dp"/>
+
+                            <TextView
+                                android:id="@+id/errorSR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/status_error"
+                                android:textSize="14sp"
+                                android:gravity="center"
+                                android:layout_marginBottom="12dp"
+                                android:visibility="gone"/>
+
+                            <Button
+                                android:id="@+id/btnCreateServiceR"
+                                style="@style/ModernButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Send Order"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

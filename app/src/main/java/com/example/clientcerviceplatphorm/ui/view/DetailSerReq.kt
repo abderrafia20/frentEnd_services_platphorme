@@ -58,6 +58,7 @@ class DetailSerReq : AppCompatActivity() {
         tvDate.text = "Date: $date"
         tvStatus.text = "Status: $status"
 
+
         btnAccepte.visibility = View.GONE
         btnComplete.visibility = View.GONE
 

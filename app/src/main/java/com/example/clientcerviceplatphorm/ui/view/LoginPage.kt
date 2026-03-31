@@ -3,6 +3,7 @@ package com.example.clientcerviceplatphorm.ui.view
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +34,13 @@ class LoginPage : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
-            txtError.text = ""
+            
+            if (email.isEmpty() || password.isEmpty()) {
+                showError("Please fill all fields")
+                return@setOnClickListener
+            }
+            
+            txtError.visibility = View.GONE
             viewModel.login(email, password)
         }
 
@@ -53,7 +60,6 @@ class LoginPage : AppCompatActivity() {
     }
 
     private fun setupPasswordToggle() {
-
         showPasswordCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 etPassword.transformationMethod = null
@@ -69,7 +75,6 @@ class LoginPage : AppCompatActivity() {
             user?.let {
                 Toast.makeText(this, "Login success: ${it.getName()}", Toast.LENGTH_SHORT).show()
 
-                //saved logine
                 val sharedPref = getSharedPreferences("USER_PREF", MODE_PRIVATE)
                 val editor = sharedPref.edit()
                 editor.putBoolean("isLoggedIn", true)
@@ -81,12 +86,17 @@ class LoginPage : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } ?: run {
-                txtError.text = "Email or password incorrect"
+                showError("Email or password incorrect")
             }
         }
 
         viewModel.error.observe(this) { errorMsg ->
-            errorMsg?.let { txtError.text = it }
+            errorMsg?.let { showError(it) }
         }
+    }
+
+    private fun showError(message: String) {
+        txtError.text = message
+        txtError.visibility = View.VISIBLE
     }
 }

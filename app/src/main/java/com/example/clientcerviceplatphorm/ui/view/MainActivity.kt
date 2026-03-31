@@ -12,7 +12,6 @@ import com.example.clientcerviceplatphorm.R
 class MainActivity : AppCompatActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
