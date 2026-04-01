@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clientcerviceplatphorm.R
 import com.example.clientcerviceplatphorm.model.Service
+import com.example.clientcerviceplatphorm.model.User
 import com.example.clientcerviceplatphorm.model.adapter.AdapterService
 import com.example.clientcerviceplatphorm.ui.viewmodel.ViewModelService
 import com.example.clientcerviceplatphorm.ui.viewmodel.ViewModelUser
@@ -29,6 +31,7 @@ class HomePageServises : BaseActivity() {
 
     private lateinit var txnameHeader: TextView
     private lateinit var txemailHeader: TextView
+    private lateinit var txtUserMnag: LinearLayout
     private lateinit var etSearch: EditText
 
     private var allServices: List<Service> = emptyList()
@@ -63,7 +66,14 @@ class HomePageServises : BaseActivity() {
 
         txnameHeader = headerView.findViewById(R.id.txtName)
         txemailHeader = headerView.findViewById(R.id.txtEmail)
-        
+        txtUserMnag = headerView.findViewById(R.id.txtUserMnag)
+
+        txtUserMnag.setOnClickListener {
+            val intent = Intent(this, AllUsers::class.java)
+            intent.putExtra("idUser", userId)
+            startActivity(intent)
+        }
+
         // Drawer Listeners
         headerView.findViewById<View>(R.id.txtLogout).setOnClickListener {
             logout()
@@ -73,6 +83,7 @@ class HomePageServises : BaseActivity() {
             intent.putExtra("id", userId)
             startActivity(intent)
         }
+
         headerView.findViewById<View>(R.id.txtDelete).setOnClickListener {
             showDeleteConfirmDialog()
         }
@@ -113,6 +124,11 @@ class HomePageServises : BaseActivity() {
             user?.let {
                 txnameHeader.text = it.getName()
                 txemailHeader.text = it.getEmail()
+                if (it is User.AdminUser){
+                    txtUserMnag.visibility = View.VISIBLE
+                } else {
+                    txtUserMnag.visibility = View.GONE
+                }
                 setupBottomNavigation(it)
             }
         }

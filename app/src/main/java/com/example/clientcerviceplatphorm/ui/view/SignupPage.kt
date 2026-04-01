@@ -37,7 +37,7 @@ class SignupPage : AppCompatActivity() {
         setupSpinner()
         setupObservers()
         setupPasswordToggle()
-        viewModel.getUsers() // fetch all users for validation
+        viewModel.getUsers()
 
         btnSignup.setOnClickListener { handleSignup() }
         txtLogin.setOnClickListener {
@@ -76,7 +76,7 @@ class SignupPage : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        val roles = RoleUser.values().map { it.name }
+        val roles = RoleUser.values().filter { it != RoleUser.ADMIN }.map { it.name }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerRole.adapter = adapter
