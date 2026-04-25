@@ -63,7 +63,7 @@ QuickService/
 1. Cloner le repository :
 
 ```bash
-git clone https://github.com/username/quickservice.git
+git clone (https://github.com/abderrafia20/frentEnd_services_platphorme)
 ```
 
 2. Ouvrir le projet avec **Android Studio**
