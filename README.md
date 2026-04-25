@@ -43,12 +43,14 @@ L’application permet aux utilisateurs de publier des demandes de services et a
 ```bash
 QuickService/
 │── app/
-│   ├── activities/
-│   ├── adapters/
-│   ├── models/
-│   ├── viewmodels/
-│   ├── database/
-│   └── utils/
+│   ├── model/
+│       ├── adapter/
+│       └──model
+│   ├── repository/
+│   ├── service/
+│   └── ui/
+│       ├── view/
+│       └──viewModel/
 │
 │── res/
 │── AndroidManifest.xml
