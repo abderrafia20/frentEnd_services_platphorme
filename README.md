@@ -82,29 +82,31 @@ git clone https://github.com/username/quickservice.git
 
 ## 📸 Screenshots
 
-### 🚀 Splash / Accueil
-![Splash](screenshots/splash.png)
+### 🚀 Splash / Welcome
+| Splash | Welcome |
+|--------|---------|
+| ![](screenshots1/splash.png) | ![](screenshots1/walcome.png) |
 
 ### 🔐 Authentification
-| Login | Inscription |
-|------|------------|
-| ![](screenshots/login.png) | ![](screenshots/register.png) |
+| Login | Signup |
+|------|--------|
+| ![](screenshots1/logine.png) | ![](screenshots1/signup.png) |
+
+### 🏠 Accueil & Navigation
+| Home | Drawer Menu |
+|------|-------------|
+| ![](screenshots1/home.png) | ![](screenshots1/drawer_menu.png) |
 
 ### 📋 Services
-| Liste des services | Détails du service |
-|------------------|------------------|
-| ![](screenshots/services_list.png) | ![](screenshots/service_details.png) |
+| Détails Service | Détails SR |
+|----------------|------------|
+| ![](screenshots1/ditails.png) | ![](screenshots1/detailsSR.png) |
 
-### ➕ Création de service
-![Create Service](screenshots/create_service.png)
-
-### 📊 Suivi des demandes
-![Requests](screenshots/requests.png)
+### 📊 Demandes
+![Requests](screenshots1/request.png)
 
 ### 👤 Profil utilisateur
-![Profile](screenshots/profile.png)
-
-
+![Profile](screenshots1/profile.png)
 ---
 
 ## 👨‍💻 Auteur
