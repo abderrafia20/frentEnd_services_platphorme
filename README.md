@@ -114,8 +114,8 @@ git clone (https://github.com/abderrafia20/frentEnd_services_platphorme)
 ## 👨‍💻 Auteur
 
 - **Nom :** LOULIDA ABDERRAFIA  
-- **Formation :** Développement Digital  
-- **Niveau :** 1ère année NTIC  
+- **Formation :** Développement Digital option aplication mobile 
+- **Niveau :** 2ère année NTIC  
 
 ---
 
